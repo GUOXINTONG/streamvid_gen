@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时视频理解数据产线流程图</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .pipeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .stage {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+        }
+        .stage:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        .stage-content {
+            flex: 1;
+        }
+        .stage-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .stage-desc {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+        .gpu-allocation {
+            background: #e8f6fd;
+            border-left-color: #2980b9;
+        }
+        .data-types {
+            background: #f0fdf4;
+            border-left-color: #27ae60;
+        }
+        .quality-control {
+            background: #fef7e8;
+            border-left-color: #f39c12;
+        }
+        .output {
+            background: #f3e8ff;
+            border-left-color: #9b59b6;
+        }
+        .arrow {
+            font-size: 24px;
+            color: #3498db;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .gpu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .gpu-unit {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .data-flow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .flow-box {
+            background: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .flow-arrow {
+            color: #3498db;
+            font-size: 18px;
+        }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .metric {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .metric-label {
+            color: #7f8c8d;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🎥 实时视频理解数据产线流程图</h1>
+        
+        <div class="pipeline">
+            <!-- 数据输入层 -->
+            <div class="stage">
+                <div class="stage-content">
+                    <div class="stage-title">📥 数据输入层</div>
+                    <div class="stage-desc">
+                        多源视频数据采集与预处理
+                    </div>
+                    <div class="data-flow">
+                        <div class="flow-box">手机录屏</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">摄像头实拍</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">合成视频</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">格式标准化</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- GPU资源分配层 -->
+            <div class="stage gpu-allocation">
+                <div class="stage-content">
+                    <div class="stage-title">🖥️ GPU资源分配层</div>
+                    <div class="stage-desc">
+                        多GPU并行处理架构，专门优化实时处理性能
+                    </div>
+                    <div class="gpu-grid">
+                        <div class="gpu-unit">GPU 1-2<br>帧提取 & 特征抽取</div>
+                        <div class="gpu-unit">GPU 3-4<br>时序建模 & 关系分析</div>
+                        <div class="gpu-unit">GPU 5-6<br>标注生成 & 验证</div>
+                        <div class="gpu-unit">GPU 7-8<br>数据增强 & 实时处理</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- 核心处理层 -->
+            <div class="stage">
+                <div class="stage-content">
+                    <div class="stage-title">⚙️ 核心处理层</div>
+                    <div class="stage-desc">
+                        多维度特征提取与时序建模
+                    </div>
+                    <div class="data-flow">
+                        <div class="flow-box">帧间差分</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">运动轨迹</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">状态转换</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">事件检测</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- 数据类型生成层 -->
+            <div class="stage data-types">
+                <div class="stage-content">
+                    <div class="stage-title">📊 数据类型生成层</div>
+                    <div class="stage-desc">
+                        针对实时视频理解的专门数据类型生成
+                    </div>
+                    <div class="data-flow">
+                        <div class="flow-box">动态场景数据</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">时序推理数据</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">多模态对齐数据</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">交互式对话数据</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- 质量控制层 -->
+            <div class="stage quality-control">
+                <div class="stage-content">
+                    <div class="stage-title">🔍 质量控制层</div>
+                    <div class="stage-desc">
+                        多层次质量验证与实时性能监控
+                    </div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-value">< 100ms</div>
+                            <div class="metric-label">处理延迟</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">95%+</div>
+                            <div class="metric-label">标注准确率</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">99%</div>
+                            <div class="metric-label">时序一致性</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">24/7</div>
+                            <div class="metric-label">持续监控</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- 数据增强层 -->
+            <div class="stage">
+                <div class="stage-content">
+                    <div class="stage-title">🔄 数据增强层</div>
+                    <div class="stage-desc">
+                        实时数据增强与多样性扩展
+                    </div>
+                    <div class="data-flow">
+                        <div class="flow-box">时间维度增强</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">视角变换</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">光照调整</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">噪声模拟</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- 输出层 -->
+            <div class="stage output">
+                <div class="stage-content">
+                    <div class="stage-title">📤 高质量训练数据输出</div>
+                    <div class="stage-desc">
+                        面向手机助手实时视频理解的专门训练数据集
+                    </div>
+                    <div class="data-flow">
+                        <div class="flow-box">时序标注数据</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">交互对话数据</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">多模态对齐数据</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">实时推理数据</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 添加交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const stages = document.querySelectorAll('.stage');
+            
+            stages.forEach((stage, index) => {
+                stage.style.opacity = '0';
+                stage.style.transform = 'translateY(50px)';
+                
+                setTimeout(() => {
+                    stage.style.transition = 'all 0.6s ease';
+                    stage.style.opacity = '1';
+                    stage.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            // 添加悬停效果
+            stages.forEach(stage => {
+                stage.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                stage.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
